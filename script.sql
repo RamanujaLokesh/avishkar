@@ -64,3 +64,39 @@ CREATE TABLE messages (
     sender_regno VARCHAR(10) REFERENCES student_details(reg_no),
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TYPE gender_type AS ENUM ('male', 'female', 'others');
+ALTER TABLE student_details 
+ALTER COLUMN gender TYPE gender_type USING gender::gender_type;
+CREATE TYPE day_type AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+ALTER TABLE menu
+ALTER COLUMN day TYPE day_type USING day::day_type,
+ALTER COLUMN breakfast SET NOT NULL,
+ALTER COLUMN lunch SET NOT NULL,
+ALTER COLUMN snacks SET NOT NULL,
+ALTER COLUMN dinner SET NOT NULL;
+
+
+--djgh, kngh, sngh, ihba, ihbb, pg girls hostel
+CREATE TYPE hostel_name_type AS ENUM (
+    'SVBH',
+    'Patel',
+    'Tilak',
+    'Tandon',
+    'Malviya',
+    'NBH',
+    'Raman',
+    'Tagore',
+    'PG Girls',
+    'DJGH',
+    'KNGH',
+    'SNGH',
+    'IHB'
+);
+ALTER TABLE menu
+ALTER COLUMN hostel_name TYPE hostel_name_type USING hostel_name::hostel_name_type;
+ALTER TABLE hostel_details 
+ALTER COLUMN hostel_name TYPE hostel_name_type USING hostel_name::hostel_name_type;
+ALTER TABLE noticeboard 
+ALTER COLUMN hostel_name TYPE hostel_name_type USING hostel_name::hostel_name_type;
+ALTER TABLE messages 
+ALTER COLUMN hostel_name TYPE hostel_name_type USING hostel_name::hostel_name_type;
