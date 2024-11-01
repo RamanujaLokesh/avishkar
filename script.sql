@@ -100,3 +100,50 @@ ALTER TABLE noticeboard
 ALTER COLUMN hostel_name TYPE hostel_name_type USING hostel_name::hostel_name_type;
 ALTER TABLE messages 
 ALTER COLUMN hostel_name TYPE hostel_name_type USING hostel_name::hostel_name_type;
+
+ALTER TABLE student_details 
+ADD COLUMN password TEXT DEFAULT NULL;
+
+INSERT INTO student_details (reg_no, name, clg_mail , ph_number, gender, password)
+VALUES 
+    ('A1000001', 'Rushil', 'mnrs.rushil@gmail.com', '9123456781', 'male', NULL),
+    ('A1000002', 'Likhith', 'likhith1660@gmail.com', '9123456782', 'male', NULL),
+    ('A1000003', 'Sai', 'sdubed01@gmail.com', '9123456783', 'male', NULL),
+    ('A1000004', 'Rahul', 'dhanapanarahulreddy4444@gmail.com', '9123456784', 'male', NULL),
+    ('A1000005', 'Lokesh', 'ramunjalokesh@gmail.com', '9123456785', 'male', NULL),
+    ('A1000006', 'Kiran', 'likithkk2004@gmail.com', '9123456786', 'male', NULL),
+    ('A1000007', 'Naveen', 'naveenbhukya921@gmail.com', '9123456787', 'male', NULL);
+
+INSERT INTO Menu (hostel_name, day, breakfast, lunch, snacks, dinner)
+VALUES
+    ('SVBH', 'Monday', 'Idli, Sambar', 'Rice, Dal, Paneer Curry', 'Tea, Samosa', 'Chapati, Mixed Veg'),
+    ('SVBH', 'Tuesday', 'Dosa, Chutney', 'Fried Rice, Manchurian', 'Coffee, Biscuit', 'Paratha, Potato Curry'),
+    ('SVBH', 'Wednesday', 'Upma, Chutney', 'Curd Rice, Vegetable Fry', 'Lemonade, Sandwich', 'Rice, Sambar, Papad'),
+    ('SVBH', 'Thursday', 'Puri, Bhaji', 'Biryani, Raita', 'Tea, Pakoda', 'Naan, Dal Makhani'),
+    ('SVBH', 'Friday', 'Poha, Jalebi', 'Veg Pulao, Kurma', 'Coffee, Cake', 'Chapati, Paneer Butter Masala'),
+    ('SVBH', 'Saturday', 'Aloo Paratha, Curd', 'Rice, Sambar, Vegetable Fry', 'Lassi, Veg Puff', 'Roti, Mixed Dal'),
+    ('SVBH', 'Sunday', 'Chole Bhature', 'Veg Biryani, Raita', 'Cold Drink, Chips', 'Rice, Dal Tadka, Bhindi Fry'),
+    ('Patel', 'Monday', 'Idli, Sambar', 'Rice, Dal, Paneer Curry', 'Tea, Samosa', 'Chapati, Mixed Veg'),
+    ('Patel', 'Tuesday', 'Dosa, Chutney', 'Fried Rice, Manchurian', 'Coffee, Biscuit', 'Paratha, Potato Curry'),
+    ('Patel', 'Wednesday', 'Upma, Chutney', 'Curd Rice, Vegetable Fry', 'Lemonade, Sandwich', 'Rice, Sambar, Papad'),
+    ('Patel', 'Thursday', 'Puri, Bhaji', 'Biryani, Raita', 'Tea, Pakoda', 'Naan, Dal Makhani'),
+    ('Patel', 'Friday', 'Poha, Jalebi', 'Veg Pulao, Kurma', 'Coffee, Cake', 'Chapati, Paneer Butter Masala'),
+    ('Patel', 'Saturday', 'Aloo Paratha, Curd', 'Rice, Sambar, Vegetable Fry', 'Lassi, Veg Puff', 'Roti, Mixed Dal'),
+    ('Patel', 'Sunday', 'Chole Bhature', 'Veg Biryani, Raita', 'Cold Drink, Chips', 'Rice, Dal Tadka, Bhindi Fry'),
+    ('Tilak', 'Monday', 'Idli, Sambar', 'Rice, Dal, Paneer Curry', 'Tea, Samosa', 'Chapati, Mixed Veg'),
+    ('Tilak', 'Tuesday', 'Dosa, Chutney', 'Fried Rice, Manchurian', 'Coffee, Biscuit', 'Paratha, Potato Curry'),
+    ('Tilak', 'Wednesday', 'Upma, Chutney', 'Curd Rice, Vegetable Fry', 'Lemonade, Sandwich', 'Rice, Sambar, Papad'),
+    ('Tilak', 'Thursday', 'Puri, Bhaji', 'Biryani, Raita', 'Tea, Pakoda', 'Naan, Dal Makhani'),
+    ('Tilak', 'Friday', 'Poha, Jalebi', 'Veg Pulao, Kurma', 'Coffee, Cake', 'Chapati, Paneer Butter Masala'),
+    ('Tilak', 'Saturday', 'Aloo Paratha, Curd', 'Rice, Sambar, Vegetable Fry', 'Lassi, Veg Puff', 'Roti, Mixed Dal'),
+    ('Tilak', 'Sunday', 'Chole Bhature', 'Veg Biryani, Raita', 'Cold Drink, Chips', 'Rice, Dal Tadka, Bhindi Fry');
+
+INSERT INTO hostel_details(reg_no, hostel_name, room_number)
+VALUES
+    ('A1000001', 'SVBH', '101'),
+    ('A1000002', 'Patel', '102'),
+    ('A1000003', 'Tilak', '203'),
+    ('A1000004', 'Tandon', '204'),
+    ('A1000005', 'Malviya', '305'),
+    ('A1000006', 'NBH', '306'),
+    ('A1000007', 'Raman', '407');
