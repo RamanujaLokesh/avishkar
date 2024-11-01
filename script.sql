@@ -152,6 +152,6 @@ create table reset_tokens(
     token varchar(255) not null,
     created_at varchar(255) not null, 
     expires_at varchar(255) not null,
-    user_id int not null,
-    PRIMARY KEY(user_id, token)
+    reg_no VARCHAR(10) REFERENCES student_details(reg_no) ,
+    PRIMARY KEY(reg_no, token)
 );
