@@ -147,3 +147,11 @@ VALUES
     ('A1000005', 'Malviya', '305'),
     ('A1000006', 'NBH', '306'),
     ('A1000007', 'Raman', '407');
+
+create table reset_tokens(
+    token varchar(255) not null,
+    created_at varchar(255) not null, 
+    expires_at varchar(255) not null,
+    user_id int not null,
+    PRIMARY KEY(user_id, token)
+);
