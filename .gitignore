@@ -1,5 +1,9 @@
 .DS_Store
 
+# dependencies
+/login/backend/node_modules
+/login/frontend/node_modules
+
 # Images
 images/avatars/
 images/captchas/

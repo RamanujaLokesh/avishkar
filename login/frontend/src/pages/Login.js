@@ -9,8 +9,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Card, CardContent } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
@@ -18,6 +21,9 @@ const Login = () => {
             email: data.get("email"),
             password: data.get("password"),
         });
+
+        // Redirect to the main page upon successful login
+        navigate("/main");
     };
 
     return (
@@ -53,7 +59,8 @@ const Login = () => {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                // label="Email Address"
+                                label="user name"
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
@@ -69,6 +76,7 @@ const Login = () => {
                                 autoComplete="current-password"
                             />
                             <Button
+                                // href="/main"
                                 type="submit"
                                 fullWidth
                                 variant="contained"

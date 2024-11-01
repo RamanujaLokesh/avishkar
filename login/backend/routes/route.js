@@ -10,6 +10,48 @@ const { sendEmail, mailTemplate } = require("../utils/email");
 
 const NumSaltRounds = Number(process.env.NO_OF_SALT_ROUNDS);
 
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Retrieve the user by email
+    const user = await db.get_user_by_email(email);
+
+    // Check if user exists
+    if (!user || user.length === 0) {
+      return res.json({
+        success: false,
+        message: "User not found!",
+      });
+    }
+
+    // Check password
+    const isPasswordValid = await bcrypt.compare(password, user[0].password);
+    if (!isPasswordValid) {
+      return res.json({
+        success: false,
+        message: "Invalid password!",
+      });
+    }
+
+    // Generate JWT token
+    const token =  crypto.randomBytes(20).toString("hex");
+
+    // Send response with token
+    res.json({
+      success: true,
+      message: "Login successful!",
+      token,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      success: false,
+      message: "An error occurred during login!",
+    });
+  }
+});
+
 router.post("/forgotPassword", async (req, res) => {
   try {
     const email = req.body.email;

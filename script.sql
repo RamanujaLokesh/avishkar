@@ -64,3 +64,11 @@ CREATE TABLE messages (
     sender_regno VARCHAR(10) REFERENCES student_details(reg_no),
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+create table reset_tokens(
+    token varchar(255) not null,
+    created_at varchar(255) not null, 
+    expires_at varchar(255) not null,
+    reg_no int not null,
+    PRIMARY KEY(user_id, token)
+);
