@@ -58,11 +58,11 @@ router.post("/forgotPassword", async (req, res) => {
     const user = await db.get_user_by_email(email);
 
     if (!user || user.length === 0) {
-      res.json({
-        success: false,
+      res.json({success: false,
         message: "Your are not registered!",
       });
-    } else {
+    } 
+    else {
       const token = crypto.randomBytes(20).toString("hex");
       const resetToken = crypto.createHash("sha256")
         .update(token)
