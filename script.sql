@@ -1,11 +1,12 @@
 create schema mess;
-
+CREATE TYPE gender AS ENUM ('male', 'female');
 CREATE TABLE student_details (
     reg_no VARCHAR(10) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     clg_mail VARCHAR(255) UNIQUE NOT NULL,
     ph_number VARCHAR(15),
-    gender VARCHAR(10)
+    gender VARCHAR(10)--enum of male and female
+    password text
 );
 
 CREATE TABLE bank_details (
