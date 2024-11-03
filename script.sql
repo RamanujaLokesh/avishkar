@@ -148,7 +148,15 @@ VALUES
     ('A1000006', 'NBH', '306'),
     ('A1000007', 'Raman', '407');
 
-CREATE TABLE Unregistered_Meals (
+create table reset_tokens(
+    token varchar(255) not null,
+    created_at varchar(255) not null, 
+    expires_at varchar(255) not null,
+    reg_no VARCHAR(10) REFERENCES student_details(reg_no) ,
+    PRIMARY KEY(reg_no)
+);
+
+CREATE TABLE unregistered_meals (
     reg_no VARCHAR(10),
     date DATE,
     breakfast BOOLEAN,
@@ -156,5 +164,6 @@ CREATE TABLE Unregistered_Meals (
     snacks BOOLEAN,
     dinner BOOLEAN,
     PRIMARY KEY (reg_no, date),
-    FOREIGN KEY (reg_no) REFERENCES Users(reg_no)
+    FOREIGN KEY (reg_no) REFERENCES student_details(reg_no)
 );
+
