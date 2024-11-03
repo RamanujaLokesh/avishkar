@@ -147,3 +147,14 @@ VALUES
     ('A1000005', 'Malviya', '305'),
     ('A1000006', 'NBH', '306'),
     ('A1000007', 'Raman', '407');
+
+CREATE TABLE Unregistered_Meals (
+    reg_no VARCHAR(10),
+    date DATE,
+    breakfast BOOLEAN,
+    lunch BOOLEAN,
+    snacks BOOLEAN,
+    dinner BOOLEAN,
+    PRIMARY KEY (reg_no, date),
+    FOREIGN KEY (reg_no) REFERENCES Users(reg_no)
+);
