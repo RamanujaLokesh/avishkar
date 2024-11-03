@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useEffect } from "react";
 import {
     useSearchParams,
     useNavigate
@@ -20,41 +20,57 @@ import { toast } from "react-toastify";
 const ResetPassword = () => {
     const [searchParams] = useSearchParams();
     let navigate = useNavigate();
-    const userId = searchParams.get("id");
+    
+    // Get reg_no instead of userId
+    const reg_no = searchParams.get("reg_no");  // Change to reg_no
     const token = searchParams.get("token");
+
+    // Debugging: Log the values to check if they are being retrieved correctly
+    useEffect(() => {
+        console.log("reg_no:", reg_no);
+        console.log("token:", token);
+    }, [reg_no, token]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const newpassword = data.get("newpassword");
         const confirmpassword = data.get("confirmpassword");
-        if (newpassword !== confirmpassword)
-            toast.error(`New Password and 
-                         Confirm Password do not match !`, {
+        
+        if (newpassword !== confirmpassword) {
+            toast.error(`New Password and Confirm Password do not match!`, {
                 autoClose: 5000,
                 position: "top-right",
             });
-        else {
-            const url = process.env.REACT_APP_BACKEND_URL 
-                                        + "/api/resetPassword";
-            const res = await axios.post(url, {
-                password: newpassword,
-                token: token,
-                userId: userId,
-            });
-            if (res.data.success === false) {
-                toast.error(res.data.message, {
+        } else {
+            const url = process.env.REACT_APP_BACKEND_URL + "/api/resetPassword";
+            try {
+                const res = await axios.post(url, {
+                    password: newpassword,
+                    token: token,
+                    reg_no: reg_no, // Use reg_no instead of userId
+                });
+                
+                if (res.data.success === false) {
+                    toast.error(res.data.message, {
+                        autoClose: 5000,
+                        position: "top-right",
+                    });
+                } else {
+                    toast.success(res.data.message, {
+                        autoClose: 5000,
+                        position: "top-right",
+                    });
+                    setTimeout(() => {
+                        navigate("/login");
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error("Error resetting password:", error.response.data);
+                toast.error("An error occurred while resetting your password.", {
                     autoClose: 5000,
                     position: "top-right",
                 });
-            } else {
-                toast.success(res.data.message, {
-                    autoClose: 5000,
-                    position: "top-right",
-                });
-                setTimeout(() => {
-                    navigate("/login");
-                }, 2000);
             }
         }
     };
@@ -71,19 +87,14 @@ const ResetPassword = () => {
             >
                 <Card sx={{ boxShadow: "4" }}>
                     <CardContent sx={{ m: 3 }}>
-                        <Avatar sx={{ m: "auto", 
-                                      bgcolor: "primary.main" }}>
+                        <Avatar sx={{ m: "auto", bgcolor: "primary.main" }}>
                             <LockResetIcon />
                         </Avatar>
-                        <Typography component="h1" 
-                                    variant="h5" 
-                                    sx={{ mt: 1 }}>
+                        <Typography component="h1" variant="h5" sx={{ mt: 1 }}>
                             Reset Password
                         </Typography>
 
-                        <Box component="form"
-                             onSubmit={handleSubmit} 
-                             sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required

@@ -70,5 +70,5 @@ create table reset_tokens(
     created_at varchar(255) not null, 
     expires_at varchar(255) not null,
     reg_no int not null,
-    PRIMARY KEY(user_id, token)
+    PRIMARY KEY(ureg_no, token)
 );

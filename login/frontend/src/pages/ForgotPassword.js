@@ -7,33 +7,38 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {
-    Card,
-    CardContent
-} from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        const email = data.get("email");
-        const url = process
-                        .env
-                        .REACT_APP_BACKEND_URL + "/api/forgotPassword";
-        const res = await axios.post(url, { email: email });
-        if (res.data.success === false) {
-            toast.error(res.data.message, {
-                autoClose: 5000,
-                position: "top-right",
-            });
-        } else {
-            toast.success(res.data.message, {
+        const reg_no = data.get("reg_no"); // Get registration number
+        const url = process.env.REACT_APP_BACKEND_URL + "/api/forgotPassword";
+        
+        try {
+            const res = await axios.post(url, { reg_no: reg_no }); // Send reg_no to backend
+
+            if (res.data.success === false) {
+                toast.error(res.data.message, {
+                    autoClose: 5000,
+                    position: "top-right",
+                });
+            } else {
+                toast.success(res.data.message, {
+                    autoClose: 5000,
+                    position: "top-right",
+                });
+            }
+        } catch (error) {
+            toast.error("An error occurred. Please try again later.", {
                 autoClose: 5000,
                 position: "top-right",
             });
         }
     };
+
     return (
         <Container maxWidth="sm">
             <Box
@@ -52,21 +57,19 @@ const ForgotPassword = () => {
                         }}>
                             <LockOutlinedIcon />
                         </Avatar>
-                        <Typography component="h1"
-                            variant="h5" sx={{ mt: 1 }}>
+                        <Typography component="h1" variant="h5" sx={{ mt: 1 }}>
                             Forgot Password
                         </Typography>
 
-                        <Box component="form"
-                            onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+                                id="reg_no"
+                                label="Registration Number"    // Changed label to Registration Number
+                                name="reg_no"
+                                autoComplete="reg_no"
                                 autoFocus
                             />
                             <Button

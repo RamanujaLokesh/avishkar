@@ -10,20 +10,33 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Card, CardContent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const navigate = useNavigate();
-    
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        console.log({
-            email: data.get("email"),
-            password: data.get("password"),
-        });
+        const reg_no = data.get("reg_no"); // Get registration number
+        const password = data.get("password");
 
-        // Redirect to the main page upon successful login
-        navigate("/main");
+        const url = process.env.REACT_APP_BACKEND_URL + "/api/login";
+        const res = await axios.post(url, { reg_no: reg_no, password: password }); // Use reg_no
+
+        if (res.data.success === false) {
+            toast.error(res.data.message, {
+                autoClose: 5000,
+                position: "top-right",
+            });
+        } else {
+            toast.success(res.data.message, {
+                autoClose: 5000,
+                position: "top-right",
+            });
+            navigate("/main");
+        }
     };
 
     return (
@@ -58,11 +71,10 @@ const Login = () => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                // label="Email Address"
-                                label="user name"
-                                name="email"
-                                autoComplete="email"
+                                id="reg_no"
+                                label="Registration Number"  // Changed label to Registration Number
+                                name="reg_no"
+                                autoComplete="reg_no"
                                 autoFocus
                             />
                             <TextField
@@ -76,7 +88,6 @@ const Login = () => {
                                 autoComplete="current-password"
                             />
                             <Button
-                                // href="/main"
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -89,7 +100,7 @@ const Login = () => {
                                     <Link
                                         href="/forgotPassword"
                                         variant="body2"
-                                        style={{textDecoration:"None"}}
+                                        style={{ textDecoration: "none" }}
                                     >
                                         Forgot password?
                                     </Link>
