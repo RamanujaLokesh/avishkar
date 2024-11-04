@@ -167,3 +167,12 @@ CREATE TABLE unregistered_meals (
     FOREIGN KEY (reg_no) REFERENCES student_details(reg_no)
 );
 
+ALTER TABLE hostel_details
+ADD CONSTRAINT unique_hostel_name UNIQUE (hostel_name);
+
+CREATE TABLE contact_details (
+    hostel_name hostel_name_type PRIMARY KEY REFERENCES hostel_details(hostel_name),
+    office_mail VARCHAR(255),
+    warden_mail VARCHAR(255),
+    chief_warden_mail VARCHAR(255)
+);
