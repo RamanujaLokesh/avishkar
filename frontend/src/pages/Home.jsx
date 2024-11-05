@@ -1,6 +1,6 @@
-import Navbar from '../../components/navbar.jsx';
-import Mealplan from '../../components/mealplan.jsx';
-import Footer from '../../components/footer.jsx';
+import Navbar from '../components/navbar.jsx';
+import Mealplan from '../components/mealplan.jsx';
+import Footer from '../components/footer.jsx';
 
 function Home() {
   return (

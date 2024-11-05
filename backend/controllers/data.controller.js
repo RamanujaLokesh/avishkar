@@ -1,28 +1,12 @@
 import pool from "../dbConfig.js";
 
-export const getregno = async (req, res) => {
-    const  token  = req.params.token;
-    try {
-        let result = await pool.query('SELECT reg_no FROM reset_tokens WHERE token = $1', [token]);
-        if (result.rowCount === 0) {
-            console.log("No token found");
-            return res.status(404).json({ message: "Invalid token" });
-        }
-        result = result.rows[0];
-        // console.log("here")
-        // console.log(result)
-        res.status(200).json({ reg_no: result.reg_no });
-    } catch (error) {
-        console.log("Error in data controller:", error.message);
-        res.status(500).json({ error: "Internal server error" });
-    }
-};
+
 
 
 export const getMenu = async(req,res) =>{
-    const hostel = req.params.hostel;
+    // const hostel = req.params.hostel;
 try {
-    let menu = await pool.query(`select * from menu where hostel_name = $1` , [hostel]);
+    let menu = await pool.query(`select * from menu where hostel_name = $1` , ['SVBH'||req.user.hostel]);
     
     if (menu.rowCount===0) {
         console.log("no menu found in db")
@@ -67,30 +51,14 @@ return res.status(201).json(menu);
  }
 }
 
-
-export const unregisterMeal = async (req, res)=>{
-    const {reg_no , breakfast , lunch , snacks , dinner} = req.body;
-    const today = new Date();
-const tomorrow = new Date(today);
-tomorrow.setDate(today.getDate() + 1);
-
-console.log(tomorrow);
-
-
+export const getNotices = async (req, res) => {
     try {
-
-        let result = await pool.query(`insert into unregistered_meals values ($1 ,$2, $3,$4,$5,$6)` , [reg_no , tomorrow , breakfast, lunch ,snacks ,dinner])
-        if(result.rowCount===0){
-            console.log("cant unregister in db")
-            return res.status(404).json({error:"cant insert into db"});
-        }
-        // console.log(result.rows)
-
-        return res.status(201).json({message:"success"});
-
+      const notices = await pool.query("SELECT * FROM noticeboard WHERE hostel_name = $1 ORDER BY timestamp DESC LIMIT 5" , [req.user.hostel]);
+      res.status(200).json(notices.rows);
     } catch (error) {
-        console.log("error in unregesteermeal controller ", error)
-    res.status(500).json({error:"internal server error"});
+      console.error(error);
+      res.status(500).json({ message: "Failed to fetch notices" });
     }
+  };
 
-}
+

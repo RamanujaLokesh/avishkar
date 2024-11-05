@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import pool from './dbConfig.js'
 import authRouter from './router/auth.routes.js'
 import dataRouter from './router/data.router.js'
+import userRouter from './router/user.router.js'
 
 const app  = express();
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(morgan("dev"))
 
 app.use("/api/auth" , authRouter);
 app.use("/api/data" , dataRouter )
+app.use('/api/user',userRouter);
 
 app.get('/' , async(req,res)=>{
     const result = await pool.query("SELECT * FROM student_details ;");

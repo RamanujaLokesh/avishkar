@@ -1,29 +1,35 @@
-import { useState } from 'react'
-import { Toaster } from 'react-hot-toast'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import ResetPassword from './pages/resetpassword/ResetPassword.jsx'
-import Home from './pages/home/home.jsx'
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
+import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
+import ForgetPassword from './pages/ForgetPassword.jsx';
+import { useAuthContext } from './context/AuthContext.jsx';
 
-import './App.css'
+import './App.css';
+import ResetPassword from './pages/ResetPassword.jsx';
+import NoticePage from './pages/NoticePage.jsx';
+import Menu from './pages/menu/Menu.jsx';
+
 function App() {
-  const router = createBrowserRouter([
-    {path:"/",
-      element:<Home />
-    },
-    {path:"/resetpassword/:token",
-      element:<ResetPassword />
-    }
-  ])
- 
+  const { authUser } = useAuthContext();
 
   return (
-    <div className='p-4 h-screen flex items-center justify-center'>
-
-<RouterProvider router={router}
-/>
+    <div>
+  
+      <Routes>
+      <Route path='/' element={!authUser?<Navigate to='/login' />:<Home />} />
+      <Route path="/login" element={authUser? <Navigate to='/' />:<Login />} />
+      <Route path="/forgetpassword" element={authUser? <Navigate to='/' />:<ForgetPassword />} />
+      <Route path='/notice' element={!authUser?<Navigate to='/login' />:<NoticePage />} />
+      <Route path='/messmenu' element={!authUser?<Navigate to='/login' />:<Menu />} />
+    
+       
+      <Route path='/resetpassword/:token' element={<ResetPassword />} />
+      </Routes>
+      <Toaster />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

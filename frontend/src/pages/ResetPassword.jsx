@@ -16,7 +16,7 @@ const ResetPassword = () => {
     }
 setLoading(true);
     try {
-      let reg = await fetch(`/api/data/getuserbytoken/${token}`);
+      let reg = await fetch(`/api/user/getuserbytoken/${token}`);
       reg = await reg.json();
       // console.log("here")
       // console.log(reg);

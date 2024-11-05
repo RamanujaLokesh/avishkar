@@ -22,7 +22,13 @@ export const loginUser = async (req , res)=>{
             
         }else{
            user = user.rows[0];
-           generateTokenAndSetCookie(user.reg_no , res);
+           let hostel = await pool.query(`select hostel_name , room_number from hostel_details where reg_no = $1`,[user.reg_no]);
+        if(!hostel){
+            return res.status(404).json({error:"user not found"});
+        }
+        hostel = hostel.rows[0]
+        let obj = {reg_no:user.reg_no , name:user.name, clg_mail:user.clg_mail,ph_number:user.ph_number,gender:user.gender , hostel:hostel.hostel_name}
+           generateTokenAndSetCookie(obj , res);
         
             res.status(201).json({
             reg_no: user.reg_no,
@@ -40,7 +46,7 @@ export const loginUser = async (req , res)=>{
 }
 
 
-export const resetPassword = async(req,res)=>{
+export const resetPasswordMail = async(req,res)=>{
 
     const transporter = nodemailer.createTransport({
         service: 'gmail', // Or any other email service
@@ -52,7 +58,7 @@ export const resetPassword = async(req,res)=>{
 console.log(process.env.EMAIL_PASSWORD)
 
 try {
-    let user = await pool.query('select clg_mail from student_details where reg_no = $1' , [req.body.regNo]);
+    let user = await pool.query('select clg_mail from student_details where reg_no = $1' , [req.body.reg_no]);
     if(!user){
         console.log("user not fount in resetpsassword controller");
         res.status(400).json({error:"incorrect reg_no"});
@@ -69,7 +75,7 @@ try {
         VALUES ($1, $2, $3 , $4)
         ON CONFLICT (reg_no) 
         DO UPDATE SET token = $2, expires_at = $3 , created_at =  $4;
-    `, [req.body.regNo, token, tokenExpiration , Date.now()]);
+    `, [req.body.reg_no, token, tokenExpiration , Date.now()]);
  const resetUrl = `http://localhost:3000/resetpassword/${token}`
 
  const mailOptions = {
@@ -120,7 +126,7 @@ export const logoutUser = (req, res)=>{
 
 
 
-export const resetPasswordResponse = async(req, res)=>{
+export const resetPassword = async(req, res)=>{
  const {token} = req.query;
 try {
     let result = await pool.query('SELECT * FROM reset_tokens WHERE token = $1 AND expires_at > $2', [token, Date.now()]);

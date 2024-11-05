@@ -1,4 +1,5 @@
 import  { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +19,9 @@ const Navbar = () => {
     <nav className="flex items-center justify-between p-4 bg-neutral text-neutral-content">
       <div className="text-xl font-bold">MNNIT</div>
       <div className={`flex gap-4 ${isOpen ? 'flex-col' : 'hidden'} lg:flex`}>
-        <a href="#home" className="hover:text-gray-400">Home</a>
-        <a href="#about" className="hover:text-gray-400">About</a>
-        <a href="#mess-menu" className="hover:text-gray-400">Mess-Menu</a>
+        <Link to='/'  className="hover:text-gray-400">Home</Link>
+        <Link  to='/notice' className="hover:text-gray-400">Notice</Link>
+        <Link to='/messmenu' className="hover:text-gray-400">Mess-Menu</Link>
         
         <div className="relative cursor-pointer" onClick={toggleProfile}>
           <span>{user.name}</span>

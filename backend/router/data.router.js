@@ -1,13 +1,15 @@
 import express from "express";
-import { getDayMenu, getMenu, getregno, unregisterMeal } from "../controllers/data.controller.js";
+import { getDayMenu, getMenu, getNotices } from "../controllers/data.controller.js";
+import protectRoute from '../middleware/protectRoute.js'
 
 const router = express.Router();
 
-router.get('/getuserbytoken/:token' , getregno);
-router.get('/getmenu/:hostel' , getMenu)
-router.get('/getdaymenu' , getDayMenu)
 
-router.post('/unregistermeal' , unregisterMeal)
+router.get('/getmenu/', protectRoute , getMenu)
+router.get('/getdaymenu' , getDayMenu)
+router.get('/notice' , protectRoute , getNotices);
+
+
 
 
 export default router;
