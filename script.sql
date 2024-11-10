@@ -185,3 +185,4 @@ INSERT INTO contact_details (hostel_name, office_mail, warden_mail, chief_warden
 ('NBH', 'likithkk2004@gmail.com', 'dhanapanarahulreddy4444@gmail.com', 'ramunjalokesh@gmail.com'),
 ('Raman', 'naveenbhukya921@gmail.com', 'likithkk2004@gmail.com', 'naveenbhukya921@gmail.com');
 
+ALTER TYPE hostel_name_type ADD VALUE 'All';
