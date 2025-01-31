@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import pool from '../dbConfig.js';
+
 
 
 const protectRoute = async (req, res, next) => {

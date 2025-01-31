@@ -14,3 +14,15 @@ insert into hostel_details values
 ('20223291' , '' , '150'),
 ('20223292' , 'malviya' , '150'),
 ('20223293' , 'malviya' , '150')
+
+insert into hostel_details values
+('A1000001' , 'All','1'),
+('B1000001' , 'Malviya' , '1'),
+('B1000002' , 'Malviya' ,'1')
+
+
+insert into student_details (reg_no , name , clg_mail, ph_number , gender) values ('A1000001','chief warden','ramanujalokesh@gmail.com','9876543210','male'),
+('B1000001','warden','ramanujalokesh2@gmail.com','9876543210','male'),
+('B1000002','caretaker','ramanujalokesh3@gmail.com','9876543210','male'),
+('B2000001','warden','ramanujalokesh4@gmail.com','9876543210','male'),
+('B2000002','mess manager','ramanujalokesh5@gmail.com','9876543210','male')

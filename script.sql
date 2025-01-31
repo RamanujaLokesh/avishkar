@@ -185,4 +185,40 @@ INSERT INTO contact_details (hostel_name, office_mail, warden_mail, chief_warden
 ('NBH', 'likithkk2004@gmail.com', 'dhanapanarahulreddy4444@gmail.com', 'ramunjalokesh@gmail.com'),
 ('Raman', 'naveenbhukya921@gmail.com', 'likithkk2004@gmail.com', 'naveenbhukya921@gmail.com');
 
+ALTER TABLE hostel_details
+ADD CONSTRAINT unique_hostel_name UNIQUE (hostel_name);
+
+CREATE TABLE contact_details (
+    hostel_name hostel_name_type PRIMARY KEY REFERENCES hostel_details(hostel_name),
+    office_mail VARCHAR(255),
+    warden_mail VARCHAR(255),
+    chief_warden_mail VARCHAR(255);
+);
+INSERT INTO contact_details (hostel_name, office_mail, warden_mail, chief_warden_mail) VALUES
+('SVBH', 'mnrs.rushil@gmail.com', 'mnrs.rushil@gmail.com', 'likhith1660@gmail.com'),
+('Patel', 'likhith1660@gmail.com', 'sdubed01@gmail.com', 'dhanapanarahulreddy4444@gmail.com'),
+('Tilak', 'sdubed01@gmail.com', 'ramunjalokesh@gmail.com', 'likithkk2004@gmail.com'),
+('Tandon', 'dhanapanarahulreddy4444@gmail.com', 'naveenbhukya921@gmail.com', 'mnrs.rushil@gmail.com'),
+('Malviya', 'ramunjalokesh@gmail.com', 'likhith1660@gmail.com', 'sdubed01@gmail.com'),
+('NBH', 'likithkk2004@gmail.com', 'dhanapanarahulreddy4444@gmail.com', 'ramunjalokesh@gmail.com'),
+('Raman', 'naveenbhukya921@gmail.com', 'likithkk2004@gmail.com', 'naveenbhukya921@gmail.com');
+
+ALTER TABLE hostel_details
+ADD CONSTRAINT unique_hostel_name UNIQUE (hostel_name);
+
+CREATE TABLE contact_details (
+    hostel_name hostel_name_type PRIMARY KEY REFERENCES hostel_details(hostel_name),
+    office_mail VARCHAR(255),
+    warden_mail VARCHAR(255),
+    chief_warden_mail VARCHAR(255)
+);
+
+CREATE TABLE stored_complaints (
+    complaint_id SERIAL PRIMARY KEY,
+    reg_no VARCHAR REFERENCES student_details(reg_no),
+    hostel_name hostel_name_type, 
+    complaint TEXT,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 ALTER TYPE hostel_name_type ADD VALUE 'All';

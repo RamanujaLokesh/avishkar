@@ -4,14 +4,14 @@ import Footer from '../components/footer.jsx';
 
 function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow pt-16 pb-20"> 
+    <div className="min-h-screen flex flex-col bg-gray-200">
+    
+      <main className="flex-grow items-center justify-center ">
         <Mealplan />
       </main>
-      <Footer />
+      
     </div>
   );
 }
 
-export default Home
+export default Home;

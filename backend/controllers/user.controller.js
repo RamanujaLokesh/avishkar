@@ -40,7 +40,7 @@ console.log(tomorrow);
         `, [req.user.reg_no, tomorrow, breakfast, lunch, snacks, dinner]);
         
         if(result.rowCount===0){
-            console.log("cant unregister in db")
+            console.log("cant unregister in db (unregisterMeal)")
             return res.status(404).json({error:"cant insert into db"});
         }
         // console.log(result.rows)
@@ -64,9 +64,9 @@ export const userUnregisteredMeals = async(req,res)=>{
     
     try {
         let result  =  await pool.query(`select * from unregistered_meals where reg_no=$1 and date =$2`, [req.user.reg_no, tomorrow])
-        console.log(result.rows)
+        // console.log(result.rows)
         if(result.rowCount===0){
-            console.log("not unregistered in db")
+            console.log("not unregistered in db (userUnregistered Meals)")
             return res.status(201).json({message:"not unregistered yet"});
         }
         // console.log(result.rows)
